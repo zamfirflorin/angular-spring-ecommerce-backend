@@ -13,51 +13,153 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import lombok.Data;
-
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name="product")
-@Data
+@Table(name="PRODUCT")
+@EqualsAndHashCode(of = 
+{"id", "sku", "name","description","unitPrice","imageUrl","active","unitsInStock","dateCreated","lastUpdated","category"
+		})
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "system-uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "guid")
+	@Column(name="id")
+	private Long id; 
+	
+	@ManyToOne
+	@JoinColumn(name = "category_id", nullable = false)
+	private ProductCategory category; 
+	
+	@Column(name="sku")
+	private String sku; 
+	
+	@Column(name="name")
+	private String name; 
+	
+	@Column(name="description")
+	private String description;
+	
+	@Column(name="unit_price")
+	private BigDecimal unitPrice;
+	
+	@Column(name="image_url")
+	private String imageUrl; 
+	
+	@Column(name="active")
+	private boolean active; 
+	
+	@Column(name="units_in_stock")
+	private int unitsInStock;
+	
+	@Column(name="date_created")
+	@CreationTimestamp
+	private Date dateCreated; 
+	
+	@Column(name="last_updated")
+	@UpdateTimestamp
+	private Date lastUpdated;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private ProductCategory category;
+	public Long getId() {
+		return id;
+	}
 
-    @Column(name = "sku")
-    private String sku;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    @Column(name = "name")
-    private String name;
+	public ProductCategory getCategory() {
+		return category;
+	}
 
-    @Column(name = "description")
-    private String description;
+	public void setCategory(ProductCategory category) {
+		this.category = category;
+	}
 
-    @Column(name = "unit_price")
-    private BigDecimal unitPrice;
+	public String getSku() {
+		return sku;
+	}
 
-    @Column(name = "image_url")
-    private String imageUrl;
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
 
-    @Column(name = "active")
-    private boolean active;
+	public String getName() {
+		return name;
+	}
 
-    @Column(name = "units_in_stock")
-    private int unitsInStock;
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Column(name = "date_created")
-    @CreationTimestamp
-    private Date dateCreated;
+	public String getDescription() {
+		return description;
+	}
 
-    @Column(name = "last_updated")
-    @UpdateTimestamp
-    private Date lastUpdated;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public BigDecimal getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(BigDecimal unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public int getUnitsInStock() {
+		return unitsInStock;
+	}
+
+	public void setUnitsInStock(int unitsInStock) {
+		this.unitsInStock = unitsInStock;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public Date getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(Date lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", category=" + category + ", sku=" + sku + ", name=" + name + ", description="
+				+ description + ", unitPrice=" + unitPrice + ", imageUrl=" + imageUrl + ", active=" + active
+				+ ", unitsInStock=" + unitsInStock + ", dateCreated=" + dateCreated + ", lastUpdated=" + lastUpdated
+				+ "]";
+	} 
+	
+	
+	
 }
