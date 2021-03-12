@@ -18,19 +18,19 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
 @Table(name="product")
-@Data
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class Product implements Serializable {
+//@Data
+@Getter
+@Setter
+public class Product   {
 
 	
-	private static final long serialVersionUID = 1L;
+	
 	public static final Logger logger = LoggerFactory.getLogger(Product.class);
 	
     @Id
@@ -90,5 +90,95 @@ public class Product implements Serializable {
     
     public Product()
     {}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (active ? 1231 : 1237);
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((imageUrl == null) ? 0 : imageUrl.hashCode());
+		result = prime * result + ((lastUpdated == null) ? 0 : lastUpdated.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((sku == null) ? 0 : sku.hashCode());
+		result = prime * result + ((unitPrice == null) ? 0 : unitPrice.hashCode());
+		result = prime * result + unitsInStock;
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (active != other.active)
+			return false;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
+		if (dateCreated == null) {
+			if (other.dateCreated != null)
+				return false;
+		} else if (!dateCreated.equals(other.dateCreated))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (imageUrl == null) {
+			if (other.imageUrl != null)
+				return false;
+		} else if (!imageUrl.equals(other.imageUrl))
+			return false;
+		if (lastUpdated == null) {
+			if (other.lastUpdated != null)
+				return false;
+		} else if (!lastUpdated.equals(other.lastUpdated))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (sku == null) {
+			if (other.sku != null)
+				return false;
+		} else if (!sku.equals(other.sku))
+			return false;
+		if (unitPrice == null) {
+			if (other.unitPrice != null)
+				return false;
+		} else if (!unitPrice.equals(other.unitPrice))
+			return false;
+		if (unitsInStock != other.unitsInStock)
+			return false;
+		return true;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", category=" + category + ", sku=" + sku + ", name=" + name + ", description="
+				+ description + ", unitPrice=" + unitPrice + ", imageUrl=" + imageUrl + ", active=" + active
+				+ ", unitsInStock=" + unitsInStock + ", dateCreated=" + dateCreated + ", lastUpdated=" + lastUpdated
+				+ "]";
+	}
     
 }

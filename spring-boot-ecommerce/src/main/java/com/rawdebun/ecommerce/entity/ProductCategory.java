@@ -1,7 +1,7 @@
 package com.rawdebun.ecommerce.entity;
 
 
-import java.io.Serializable;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,10 +25,9 @@ import lombok.Setter;
 // @Data -- known bug
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class ProductCategory implements Serializable {
+public class ProductCategory   {
 
-	private static final long serialVersionUID = 1L;
+	
 	public static final Logger logger = LoggerFactory.getLogger(ProductCategory.class);
 	
     @Id
@@ -52,6 +50,48 @@ public class ProductCategory implements Serializable {
 
 	public ProductCategory() {
 		
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((categoryName == null) ? 0 : categoryName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((products == null) ? 0 : products.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductCategory other = (ProductCategory) obj;
+		if (categoryName == null) {
+			if (other.categoryName != null)
+				return false;
+		} else if (!categoryName.equals(other.categoryName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (products == null) {
+			if (other.products != null)
+				return false;
+		} else if (!products.equals(other.products))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductCategory [id=" + id + ", categoryName=" + categoryName + ", products=" + products + "]";
 	}
     
     
