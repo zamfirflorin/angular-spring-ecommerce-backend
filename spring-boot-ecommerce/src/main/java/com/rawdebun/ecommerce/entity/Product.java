@@ -1,5 +1,6 @@
 package com.rawdebun.ecommerce.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
@@ -14,6 +15,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
@@ -21,8 +26,13 @@ import lombok.Data;
 @Entity
 @Table(name="product")
 @Data
-public class Product {
+@JsonIgnoreProperties(ignoreUnknown=true)
+public class Product implements Serializable {
 
+	
+	private static final long serialVersionUID = 1L;
+	public static final Logger logger = LoggerFactory.getLogger(Product.class);
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -60,4 +70,25 @@ public class Product {
     @Column(name = "last_updated")
     @UpdateTimestamp
     private Date lastUpdated;
+
+	public Product(Long id, ProductCategory category, String sku, String name, String description, BigDecimal unitPrice,
+			String imageUrl, boolean active, int unitsInStock, Date dateCreated, Date lastUpdated) {
+		super();
+		this.id = id;
+		this.category = category;
+		this.sku = sku;
+		this.name = name;
+		this.description = description;
+		this.unitPrice = unitPrice;
+		this.imageUrl = imageUrl;
+		this.active = active;
+		this.unitsInStock = unitsInStock;
+		this.dateCreated = dateCreated;
+		this.lastUpdated = lastUpdated;
+	}
+    
+    
+    public Product()
+    {}
+    
 }
