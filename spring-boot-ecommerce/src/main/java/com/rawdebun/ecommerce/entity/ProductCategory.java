@@ -13,9 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +25,7 @@ import lombok.Setter;
 // @Data -- known bug
 @Getter
 @Setter
+@DynamicUpdate
 public class ProductCategory   {
 
 	

@@ -1,6 +1,5 @@
 package com.rawdebun.ecommerce.entity;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
@@ -14,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +27,7 @@ import lombok.Setter;
 //@Data
 @Getter
 @Setter
+@DynamicUpdate
 public class Product   {
 
 	
