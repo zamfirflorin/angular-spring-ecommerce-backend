@@ -17,8 +17,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name="product_category")
