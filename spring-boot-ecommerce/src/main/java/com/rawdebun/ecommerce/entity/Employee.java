@@ -9,11 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.sun.istack.NotNull;
 
 @Entity
-@Table(name="EMPLOYEES")
+@Table(name="EMPLOYEESES")
 //@Getter
 //@Setter
 public class Employee {
@@ -45,8 +44,8 @@ public class Employee {
 	@Column(name = "salary")
 	private Long salary;
 	
-	@Column(name = "commission_pct", nullable = false)
-	private Integer commissionPoint;
+	@Column(name = "commission_pct")
+	private Long commissionPoint;
 	
 	@Column(name = "manager_id")
 	private Long managerId;
@@ -118,11 +117,11 @@ public class Employee {
 		this.salary = salary;
 	}
 
-	public Integer getCommissionPoint() {
+	public Long getCommissionPoint() {
 		return commissionPoint;
 	}
 
-	public void setCommissionPoint(Integer commissionPoint) {
+	public void setCommissionPoint(Long commissionPoint) {
 		this.commissionPoint = commissionPoint;
 	}
 
