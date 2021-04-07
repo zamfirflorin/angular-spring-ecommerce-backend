@@ -6,15 +6,18 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.metamodel.EntityType;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.rawdebun.ecommerce.entity.Employee;
 import com.rawdebun.ecommerce.entity.Product;
@@ -35,16 +38,21 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 		this.entityManager = theEntityManager;
 	}
 	
-	@Transactional
-    @DeleteMapping(value = "/employees/{id}")
-    public void deleteEmployee(@PathVariable Long id) {
+	
+	@DeleteMapping(value = "/employees/{id}")
+	public void deleteEmployee(@PathVariable Long id) {
+		Employee emp = entityManager.find(Employee.class, id);
+		if (emp != null) {
+			entityManager.remove(emp);
+		}
+	}
+	
+	@PostMapping(value = "/employees")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void addEmployee(@RequestBody Employee employee) {
+		entityManager.persist(employee);
+	}
 
-        Employee emp = entityManager.find(Employee.class, id);
-        //Call remove method to remove the entity
-        if(emp != null){
-        	entityManager.remove(emp);
-        }
-}
 
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
