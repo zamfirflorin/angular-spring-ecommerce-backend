@@ -7,18 +7,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name="EMPLOYEES")
+@Table(name="EMPLOYEESES")
 //@Getter
 //@Setter
 public class Employee {
 
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "EMPLOYEESES_ID_SEQ")
     @Column(name = "employee_id")
 	private Long id; 
 	//test
@@ -43,8 +45,8 @@ public class Employee {
 	@Column(name = "salary")
 	private Long salary;
 	
-	@Column(name = "commission_pct", nullable = false)
-	private Integer commissionPoint;
+	@Column(name = "commission_pct")
+	private Long commissionPoint;
 	
 	@Column(name = "manager_id")
 	private Long managerId;
@@ -116,11 +118,11 @@ public class Employee {
 		this.salary = salary;
 	}
 
-	public Integer getCommissionPoint() {
+	public Long getCommissionPoint() {
 		return commissionPoint;
 	}
 
-	public void setCommissionPoint(Integer commissionPoint) {
+	public void setCommissionPoint(Long commissionPoint) {
 		this.commissionPoint = commissionPoint;
 	}
 
